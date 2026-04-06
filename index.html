@@ -3,132 +3,95 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>glinding kopi</title>
+  <title>Brand Kopi Nusantara - Shop</title>
+
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-    }
-    header {
-      background: url('header.jpg') center/cover no-repeat;
-      height: 90vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 4em;
-      background: rgba(0,0,0,0.5);
-      padding: 20px;
-    }
-    nav {
-      background: #000;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 15px;
-      position: sticky;
-      top: 0;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-    h2 {
-      color: #c59d5f;
-    }
+    body { margin:0; font-family:Arial; background:#0e0e0e; color:#fff; }
+    header { padding:40px; text-align:center; background:#000; }
+    h1 { margin:0; }
+
+    .container { max-width:1100px; margin:auto; padding:20px; }
+
     .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
     }
+
     .card {
-      background: #1a1a1a;
-      padding: 20px;
-      border-radius: 10px;
+      background:#1a1a1a;
+      padding:15px;
+      border-radius:15px;
+      text-align:center;
     }
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #000;
+
+    .card img { width:100%; border-radius:10px; }
+
+    button {
+      margin-top:10px;
+      padding:10px;
+      border:none;
+      background:#c59d5f;
+      color:#000;
+      font-weight:bold;
+      cursor:pointer;
+      border-radius:8px;
+    }
+
+    .cart {
+      position:fixed;
+      right:0;
+      top:0;
+      width:300px;
+      height:100vh;
+      background:#111;
+      padding:20px;
+      overflow:auto;
+      border-left:2px solid #333;
+    }
+
+    .cart h2 { margin-top:0; }
+
+    .cart-item {
+      margin-bottom:10px;
+      border-bottom:1px solid #333;
+      padding-bottom:10px;
+    }
+
+    .checkout {
+      background:#25D366;
+      color:#000;
+      width:100%;
+      margin-top:20px;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Brand Kopi Nusantara</h1>
+  <h1>☕ Kopi Nusantara Shop</h1>
 </header>
 
-<nav>
-  <a href="#about">Tentang</a>
-  <a href="#produk">Produk</a>
-  <a href="#proses">Proses</a>
-  <a href="#galeri">Galeri</a>
-  <a href="#kontak">Kontak</a>
-</nav>
+<div class="container">
+  <div class="grid" id="product-list">
 
-<section id="about">
-  <h2>Tentang Brand</h2>
-  <p>Kami adalah brand kopi lokal yang berfokus pada kualitas biji kopi terbaik dari seluruh Indonesia. Dari Aceh hingga Papua, kami menghadirkan cita rasa autentik dengan proses roasting modern.</p>
-</section>
-
-<section id="produk">
-  <h2>Produk Kami</h2>
-  <div class="grid">
     <div class="card">
+      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348">
       <h3>Arabica Gayo</h3>
-      <p>Rasa fruity dengan keasaman seimbang.</p>
+      <p>Rp 75.000</p>
+      <button onclick="addToCart('Arabica Gayo',75000)">Tambah</button>
     </div>
+
     <div class="card">
+      <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0">
       <h3>Robusta Lampung</h3>
-      <p>Body kuat dengan rasa pahit khas.</p>
+      <p>Rp 55.000</p>
+      <button onclick="addToCart('Robusta Lampung',55000)">Tambah</button>
     </div>
-    <div class="card">
-      <h3>Toraja Coffee</h3>
-      <p>Aroma earthy dengan aftertaste panjang.</p>
-    </div>
+
   </div>
-</section>
+</div>
 
-<section id="proses">
-  <h2>Proses Produksi</h2>
-  <p>Kopi kami melalui beberapa tahap penting:</p>
-  <ul>
-    <li>Pemilihan biji kopi berkualitas</li>
-    <li>Proses roasting dengan kontrol suhu</li>
-    <li>Pengemasan higienis</li>
-  </ul>
-</section>
-
-<section id="galeri">
-  <h2>Galeri</h2>
-  <div class="grid">
-    <div class="card">Foto 1</div>
-    <div class="card">Foto 2</div>
-    <div class="card">Foto 3</div>
-  </div>
-</section>
-
-<section id="kontak">
-  <h2>Kontak</h2>
-  <p>Email: kopi@email.com</p>
-  <p>Instagram: @brandkopi</p>
-  <p>WhatsApp: 08123456789</p>
-</section>
-
-<footer>
-  <p>© 2026 Brand Kopi Nusantara</p>
-</footer>
-
-</body>
-</html>
+<div class="cart" id="cart">
+  <h2>Keranjang</h2>
+  <div
