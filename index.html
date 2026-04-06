@@ -1,97 +1,651 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brand Kopi Nusantara - Shop</title>
-
-  <style>
-    body { margin:0; font-family:Arial; background:#0e0e0e; color:#fff; }
-    header { padding:40px; text-align:center; background:#000; }
-    h1 { margin:0; }
-
-    .container { max-width:1100px; margin:auto; padding:20px; }
-
-    .grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
-    }
-
-    .card {
-      background:#1a1a1a;
-      padding:15px;
-      border-radius:15px;
-      text-align:center;
-    }
-
-    .card img { width:100%; border-radius:10px; }
-
-    button {
-      margin-top:10px;
-      padding:10px;
-      border:none;
-      background:#c59d5f;
-      color:#000;
-      font-weight:bold;
-      cursor:pointer;
-      border-radius:8px;
-    }
-
-    .cart {
-      position:fixed;
-      right:0;
-      top:0;
-      width:300px;
-      height:100vh;
-      background:#111;
-      padding:20px;
-      overflow:auto;
-      border-left:2px solid #333;
-    }
-
-    .cart h2 { margin-top:0; }
-
-    .cart-item {
-      margin-bottom:10px;
-      border-bottom:1px solid #333;
-      padding-bottom:10px;
-    }
-
-    .checkout {
-      background:#25D366;
-      color:#000;
-      width:100%;
-      margin-top:20px;
-    }
-  </style>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balun Kopi - Rasa Asli dari Tanah Nusantara</title>
+    <meta name="description" content="Kopi premium single origin dari tanah Nusantara. Rasa autentik, fresh roast, dan sustainable farming.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'coffee-dark': '#3C2A21',
+                        'coffee-medium': '#5C4033',
+                        'coffee-light': '#8B5A2B',
+                        'cream': '#F5E8C7',
+                        'leaf-green': '#2D5A27',
+                        'earth-brown': '#A0522D',
+                        'warm-beige': '#E6D5B8'
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif']
+                    },
+                    backgroundImage: {
+                        'gradient-coffee': 'linear-gradient(135deg, #3C2A21 0%, #5C4033 50%, #8B5A2B 100%)',
+                        'gradient-cream': 'linear-gradient(to bottom, #F5E8C7, #E6D5B8)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-height {
+            min-height: 85vh;
+        }
+        @media (max-width: 768px) {
+            .hero-height {
+                min-height: 70vh;
+            }
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(60, 42, 33, 0.15);
+        }
+        .testimonial-slide {
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .testimonial-slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
 </head>
-<body>
+<body class="font-sans text-coffee-dark bg-cream">
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-full bg-gradient-coffee flex items-center justify-center">
+                        <i class="fas fa-coffee text-cream text-xl"></i>
+                    </div>
+                    <h1 class="text-2xl font-serif font-bold text-coffee-dark">Balun Kopi</h1>
+                </div>
+                
+                <ul id="nav-menu" class="hidden md:flex space-x-8"></ul>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="mobile-menu-btn" class="md:hidden text-coffee-medium">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <a href="#order" class="bg-leaf-green text-white px-6 py-2 rounded-full font-medium hover:bg-coffee-medium transition-colors">
+                        <i class="fas fa-shopping-cart mr-2"></i>Beli Sekarang
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden mt-4 hidden">
+                <ul id="mobile-nav-list" class="space-y-3"></ul>
+            </div>
+        </nav>
+    </header>
 
-<header>
-  <h1>☕ Kopi Nusantara Shop</h1>
-</header>
+    <!-- Hero Section -->
+    <section class="hero-height relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://picsum.photos/1920/1080?random=101" alt="Kopi segar dari perkebunan Nusantara" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-coffee-dark/70 to-coffee-medium/50"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10 h-full flex items-center">
+            <div class="max-w-2xl">
+                <h2 class="text-5xl md:text-6xl font-serif font-bold text-cream mb-6 leading-tight">
+                    Rasa Asli dari Tanah Nusantara
+                </h2>
+                <p class="text-xl text-warm-beige mb-8">
+                    Setiap biji kopi kami adalah cerita tentang tanah, petani, dan tradisi. 
+                    Nikmati keautentikan rasa yang hanya bisa ditemukan di Nusantara.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#products" class="bg-leaf-green text-white px-8 py-3 rounded-full font-medium hover:bg-coffee-medium transition-colors text-lg">
+                        <i class="fas fa-coffee mr-2"></i>Lihat Produk
+                    </a>
+                    <a href="#story" class="bg-transparent border-2 border-cream text-cream px-8 py-3 rounded-full font-medium hover:bg-cream/10 transition-colors text-lg">
+                        <i class="fas fa-book-open mr-2"></i>Cerita Kami
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <a href="#story" class="text-cream animate-bounce">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
 
-<div class="container">
-  <div class="grid" id="product-list">
+    <!-- About Section -->
+    <section id="story" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-coffee-dark mb-4">Tentang Balun Kopi</h2>
+                <div class="w-24 h-1 bg-coffee-light mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="https://picsum.photos/600/400?random=102" alt="Perkebunan kopi tradisional Nusantara" class="rounded-2xl shadow-xl">
+                </div>
+                <div>
+                    <h3 class="text-3xl font-serif font-semibold text-coffee-dark mb-6">
+                        Dari Tanah untuk Penikmat Sejati
+                    </h3>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        Balun Kopi lahir dari kecintaan terhadap kekayaan rasa kopi Nusantara. 
+                        Nama "Balun" diambil dari tradisi petani kopi yang dengan penuh kasih 
+                        merawat setiap pohon seperti merawat keluarga.
+                    </p>
+                    <p class="text-gray-700 mb-8 leading-relaxed">
+                        Kami bekerja langsung dengan petani di berbagai daerah untuk memastikan 
+                        kualitas terbaik sekaligus menjaga keberlanjutan ekosistem perkebunan. 
+                        Setiap cangkir kopi Balun adalah perjalanan rasa yang membawa Anda 
+                        langsung ke tanah asalnya.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-cream flex items-center justify-center">
+                            <i class="fas fa-leaf text-leaf-green text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-coffee-dark">Filosofi Kami</h4>
+                            <p class="text-gray-600 text-sm">Autentik, Berkelanjutan, Penuh Rasa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348">
-      <h3>Arabica Gayo</h3>
-      <p>Rp 75.000</p>
-      <button onclick="addToCart('Arabica Gayo',75000)">Tambah</button>
-    </div>
+    <!-- Products Section -->
+    <section id="products" class="py-20 bg-gradient-cream">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-coffee-dark mb-4">Produk Unggulan</h2>
+                <p class="text-coffee-medium max-w-2xl mx-auto">Pilihan terbaik dari berbagai daerah di Nusantara</p>
+                <div class="w-24 h-1 bg-coffee-light mx-auto mt-4"></div>
+            </div>
+            
+            <div id="products-grid" class="grid md:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0">
-      <h3>Robusta Lampung</h3>
-      <p>Rp 55.000</p>
-      <button onclick="addToCart('Robusta Lampung',55000)">Tambah</button>
-    </div>
+    <!-- Advantages Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold text-coffee-dark mb-4">Keunggulan Balun Kopi</h2>
+                <div class="w-24 h-1 bg-coffee-light mx-auto"></div>
+            </div>
+            
+            <div id="advantages-grid" class="grid md:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
 
-  </div>
-</div>
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-coffee-dark text-cream">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-serif font-bold mb-4">Testimoni Pelanggan</h2>
+                <p class="text-warm-beige max-w-2xl mx-auto">Apa kata mereka yang sudah mencicipi keautentikan Balun Kopi</p>
+                <div class="w-24 h-1 bg-coffee-light mx-auto mt-4"></div>
+            </div>
+            
+            <div class="relative max-w-4xl mx-auto">
+                <div id="testimonial-container" class="overflow-hidden"></div>
+                
+                <div class="flex justify-center mt-8 space-x-4">
+                    <button id="prev-testimonial" class="w-10 h-10 rounded-full border border-cream flex items-center justify-center hover:bg-cream/10 transition-colors">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div id="testimonial-dots" class="flex items-center space-x-2"></div>
+                    <button id="next-testimonial" class="w-10 h-10 rounded-full border border-cream flex items-center justify-center hover:bg-cream/10 transition-colors">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="cart" id="cart">
-  <h2>Keranjang</h2>
-  <div
+    <!-- CTA Section -->
+    <section id="order" class="py-20 bg-leaf-green text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-serif font-bold mb-6">Siap Menikmati Rasa Autentik?</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto">
+                Pesan sekarang dan rasakan perbedaan kopi single origin premium langsung dari Nusantara.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6 mb-12">
+                <a href="https://wa.me/6281234567890?text=Halo%20Balun%20Kopi,%20saya%20ingin%20memesan%20kopi" 
+                   target="_blank" 
+                   class="bg-white text-leaf-green px-10 py-4 rounded-full font-bold text-lg hover:bg-cream transition-colors shadow-lg">
+                    <i class="fab fa-whatsapp mr-3"></i>Order via WhatsApp
+                </a>
+                <a href="#products" 
+                   class="bg-transparent border-2 border-white text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition-colors">
+                    <i class="fas fa-shopping-bag mr-3"></i>Lihat Katalog Lengkap
+                </a>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-8 text-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="text-left">
+                        <h4 class="font-bold">Gratis Ongkir</h4>
+                        <p class="text-sm opacity-90">Min. pembelian Rp 200.000</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="text-left">
+                        <h4 class="font-bold">Garansi Kepuasan</h4>
+                        <p class="text-sm opacity-90">100% uang kembali</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="text-left">
+                        <h4 class="font-bold">Pengiriman Cepat</h4>
+                        <p class="text-sm opacity-90">1-3 hari kerja</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-coffee-dark text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gradient-coffee flex items-center justify-center">
+                            <i class="fas fa-coffee text-cream"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-cream">Balun Kopi</h3>
+                    </div>
+                    <p class="mb-6">Menghadirkan keautentikan rasa kopi Nusantara untuk penikmat sejati.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-coffee-medium flex items-center justify-center hover:bg-coffee-light transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-coffee-medium flex items-center justify-center hover:bg-coffee-light transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-coffee-medium flex items-center justify-center hover:bg-coffee-light transition-colors">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-cream font-bold text-lg mb-6">Produk</h4>
+                    <ul id="footer-products" class="space-y-3"></ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-cream font-bold text-lg mb-6">Tautan Cepat</h4>
+                    <ul id="footer-links" class="space-y-3"></ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-cream font-bold text-lg mb-6">Kontak</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-coffee-light"></i>
+                            <span>Jl. Kopi Nusantara No. 123, Bandung, Jawa Barat</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-coffee-light"></i>
+                            <span>+62 812 3456 7890</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-coffee-light"></i>
+                            <span>hello@balunkopi.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-coffee-medium pt-8 text-center">
+                <p>&copy; 2024 Balun Kopi. Hak cipta dilindungi undang-undang.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Layer
+        const navigationData = [
+            { "label": "Beranda", "href": "#home", "icon": "fas fa-home" },
+            { "label": "Tentang", "href": "#story", "icon": "fas fa-info-circle" },
+            { "label": "Produk", "href": "#products", "icon": "fas fa-coffee" },
+            { "label": "Keunggulan", "href": "#advantages", "icon": "fas fa-star" },
+            { "label": "Testimoni", "href": "#testimonials", "icon": "fas fa-comment" }
+        ];
+
+        const productsData = [
+            { 
+                "id": 1,
+                "name": "Kopi Arabika Gayo",
+                "type": "Biji Kopi",
+                "origin": "Aceh",
+                "price": "Rp 125.000",
+                "weight": "250g",
+                "image": "https://picsum.photos/400/300?random=201",
+                "alt": "Kopi Arabika Gayo dari Aceh",
+                "features": ["Single Origin", "Medium Roast", "Notes: Coklat & Kacang"]
+            },
+            { 
+                "id": 2,
+                "name": "Kopi Robusta Temanggung",
+                "type": "Kopi Bubuk",
+                "origin": "Jawa Tengah",
+                "price": "Rp 95.000",
+                "weight": "200g",
+                "image": "https://picsum.photos/400/300?random=202",
+                "alt": "Kopi Robusta Temanggung bubuk",
+                "features": ["Dark Roast", "Siap Seduh", "Notes: Bold & Earthy"]
+            },
+            { 
+                "id": 3,
+                "name": "Kopi Luwak Bali",
+                "type": "Ready to Drink",
+                "origin": "Bali",
+                "price": "Rp 45.000",
+                "weight": "250ml",
+                "image": "https://picsum.photos/400/300?random=203",
+                "alt": "Kopi Luwak Bali kemasan botol",
+                "features": ["Cold Brew", "Kemasan Botol", "Notes: Smooth & Sweet"]
+            }
+        ];
+
+        const advantagesData = [
+            {
+                "icon": "fas fa-mountain",
+                "title": "Single Origin",
+                "description": "Setiap produk berasal dari satu daerah spesifik untuk menjaga karakter rasa yang unik dan autentik."
+            },
+            {
+                "icon": "fas fa-fire",
+                "title": "Fresh Roast",
+                "description": "Dipanggang dengan teknik terkini dan dikirim langsung setelah roasting untuk kesegaran maksimal."
+            },
+            {
+                "icon": "fas fa-seedling",
+                "title": "Sustainable Farming",
+                "description": "Bekerja sama dengan petani yang menerapkan pertanian berkelanjutan dan ramah lingkungan."
+            }
+        ];
+
+        const testimonialsData = [
+            {
+                "name": "Budi Santoso",
+                "role": "Coffee Enthusiast",
+                "content": "Sejak mencoba Balun Kopi, saya tidak bisa kembali ke kopi biasa. Rasa yang kompleks dan aroma yang memikat benar-benar berbeda.",
+                "rating": 5,
+                "image": "https://picsum.photos/100/100?random=301"
+            },
+            {
+                "name": "Sari Dewi",
+                "role": "Pemilik Café",
+                "content": "Pelanggan di café saya sangat menyukai kopi dari Balun. Konsistensi kualitasnya membuat mereka selalu kembali.",
+                "rating": 5,
+                "image": "https://picsum.photos/100/100?random=302"
+            },
+            {
+                "name": "Ahmad Fauzi",
+                "role": "Barista Professional",
+                "content": "Sebagai barista, saya menghargai bagaimana setiap biji kopi Balun memiliki karakter yang jelas dan mudah diekstrak.",
+                "rating": 5,
+                "image": "https://picsum.photos/100/100?random=303"
+            },
+            {
+                "name": "Maya Indah",
+                "role": "Food Blogger",
+                "content": "Packaging yang elegan dan rasa yang luar biasa. Perfect untuk hadiah atau dinikmati sendiri di rumah.",
+                "rating": 5,
+                "image": "https://picsum.photos/100/100?random=304"
+            }
+        ];
+
+        const footerProductsData = [
+            { "label": "Arabika Gayo", "href": "#product-gayo" },
+            { "label": "Robusta Temanggung", "href": "#product-temanggung" },
+            { "label": "Kopi Luwak Bali", "href": "#product-bali" },
+            { "label": "Kopi Toraja", "href": "#product-toraja" },
+            { "label": "Kopi Flores", "href": "#product-flores" }
+        ];
+
+        const footerLinksData = [
+            { "label": "Tentang Kami", "href": "#story" },
+            { "label": "Blog", "href": "#blog" },
+            { "label": "Cara Order", "href": "#how-to-order" },
+            { "label": "FAQ", "href": "#faq" },
+            { "label": "Kebijakan Privasi", "href": "#privacy" },
+            { "label": "Syarat & Ketentuan", "href": "#terms" }
+        ];
+
+        // Render Functions
+        function renderNavigation(items) {
+            return items.map(item => 
+                `<li><a href="${item.href}" class="text-coffee-medium hover:text-coffee-dark font-medium transition-colors">
+                    <i class="${item.icon} mr-2"></i>${item.label}
+                </a></li>`
+            ).join("");
+        }
+
+        function renderProducts(items) {
+            return items.map(product => 
+                `<div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.alt}" class="w-full h-64 object-cover" loading="lazy">
+                        <div class="absolute top-4 left-4 bg-leaf-green text-white px-3 py-1 rounded-full text-sm">
+                            ${product.type}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-coffee-dark">${product.name}</h3>
+                            <span class="text-coffee-light font-bold">${product.price}</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">${product.origin} • ${product.weight}</p>
+                        <ul class="space-y-2 mb-6">
+                            ${product.features.map(feature => 
+                                `<li class="flex items-center text-sm text-gray-700">
+                                    <i class="fas fa-check text-leaf-green mr-2"></i>${feature}
+                                </li>`
+                            ).join("")}
+                        </ul>
+                        <button class="w-full bg-coffee-light text-white py-3 rounded-lg font-medium hover:bg-coffee-dark transition-colors order-product" data-product="${product.id}">
+                            <i class="fas fa-shopping-cart mr-2"></i>Tambah ke Keranjang
+                        </button>
+                    </div>
+                </div>`
+            ).join("");
+        }
+
+        function renderAdvantages(items) {
+            return items.map(advantage => 
+                `<div class="text-center p-6">
+                    <div class="w-20 h-20 rounded-full bg-cream flex items-center justify-center mx-auto mb-6">
+                        <i class="${advantage.icon} text-3xl text-coffee-light"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-coffee-dark mb-4">${advantage.title}</h3>
+                    <p class="text-gray-700">${advantage.description}</p>
+                </div>`
+            ).join("");
+        }
+
+        function renderTestimonials(items) {
+            return items.map((testimonial, index) => 
+                `<div class="testimonial-slide ${index === 0 ? 'active' : ''}" data-index="${index}">
+                    <div class="bg-coffee-medium/30 rounded-2xl p-8">
+                        <div class="flex items-center mb-6">
+                            <img src="${testimonial.image}" alt="${testimonial.name}" class="w-16 h-16 rounded-full object-cover">
+                            <div class="ml-4">
+                                <h4 class="text-xl font-bold">${testimonial.name}</h4>
+                                <p class="text-warm-beige">${testimonial.role}</p>
+                                <div class="flex text-yellow-300 mt-1">
+                                    ${'<i class="fas fa-star"></i>'.repeat(testimonial.rating)}
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-lg italic">"${testimonial.content}"</p>
+                    </div>
+                </div>`
+            ).join("");
+        }
+
+        function renderTestimonialDots(count) {
+            let dots = '';
+            for (let i = 0; i < count; i++) {
+                dots += `<button class="testimonial-dot w-3 h-3 rounded-full ${i === 0 ? 'bg-cream' : 'bg-cream/30'}" data-index="${i}"></button>`;
+            }
+            return dots;
+        }
+
+        function renderFooterProducts(items) {
+            return items.map(item => 
+                `<li><a href="${item.href}" class="hover:text-cream transition-colors">${item.label}</a></li>`
+            ).join("");
+        }
+
+        function renderFooterLinks(items) {
+            return items.map(item => 
+                `<li><a href="${item.href}" class="hover:text-cream transition-colors">${item.label}</a></li>`
+            ).join("");
+        }
+
+        // Initialize Page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render all sections
+            document.getElementById('nav-menu').innerHTML = renderNavigation(navigationData);
+            document.getElementById('mobile-nav-list').innerHTML = renderNavigation(navigationData);
+            document.getElementById('products-grid').innerHTML = renderProducts(productsData);
+            document.getElementById('advantages-grid').innerHTML = renderAdvantages(advantagesData);
+            document.getElementById('testimonial-container').innerHTML = renderTestimonials(testimonialsData);
+            document.getElementById('testimonial-dots').innerHTML = renderTestimonialDots(testimonialsData.length);
+            document.getElementById('footer-products').innerHTML = renderFooterProducts(footerProductsData);
+            document.getElementById('footer-links').innerHTML = renderFooterLinks(footerLinksData);
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.className = 'fas fa-bars text-xl';
+                } else {
+                    icon.className = 'fas fa-times text-xl';
+                }
+            });
+
+            // Testimonial slider
+            let currentTestimonial = 0;
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.testimonial-dot');
+            
+            function showTestimonial(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('bg-cream'));
+                
+                slides[index].classList.add('active');
+                dots[index].classList.add('bg-cream');
+                currentTestimonial = index;
+            }
+            
+            document.getElementById('next-testimonial').addEventListener('click', function() {
+                let nextIndex = (currentTestimonial + 1) % slides.length;
+                showTestimonial(nextIndex);
+            });
+            
+            document.getElementById('prev-testimonial').addEventListener('click', function() {
+                let prevIndex = (currentTestimonial - 1 + slides.length) % slides.length;
+                showTestimonial(prevIndex);
+            });
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    showTestimonial(index);
+                });
+            });
+            
+            // Auto-rotate testimonials
+            setInterval(() => {
+                let nextIndex = (currentTestimonial + 1) % slides.length;
+                showTestimonial(nextIndex);
+            }, 5000);
+
+            // Smooth scrolling for all anchor links
+            document.addEventListener('click', function(event) {
+                const link = event.target.closest('a[href^="#"]');
+                if (!link) return;
+                
+                const targetId = link.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const target = document.querySelector(targetId);
+                if (target) {
+                    event.preventDefault();
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuBtn.querySelector('i').className = 'fas fa-bars text-xl';
+                    }
+                }
+            });
+
+            // Product order buttons
+            document.querySelectorAll('.order-product').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product');
+                    const product = productsData.find(p => p.id == productId);
+                    
+                    if (product) {
+                        const message = `Halo Balun Kopi, saya ingin memesan ${product.name} (${product.weight}) seharga ${product.price}.`;
+                        const whatsappUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`;
+                        
+                        // Open WhatsApp in new tab
+                        window.open(whatsappUrl, '_blank');
+                    }
+                });
+            });
+
+            // Add scroll effect to header
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.classList.add('shadow-lg');
+                } else {
+                    header.classList.remove('shadow-lg');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
