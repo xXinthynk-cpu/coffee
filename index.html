@@ -1,228 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dark Landing Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elegant Dark Landing</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+<style>
+:root {
+  --dark: #0d0d0d;
+  --dark2: #1a1a1a;
+  --cream: #e6d3b3;
+  --accent: #c2a27c;
+}
 
-    body {
-      background: #0f0f0f;
-      color: #fff;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-    /* NAVBAR */
-    header {
-      width: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-    }
+body {
+  background: var(--dark);
+  color: #fff;
+}
 
-    .logo {
-      font-size: 20px;
-      font-weight: bold;
-      color: #00ffcc;
-    }
+/* NAVBAR */
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: rgba(13,13,13,0.7);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-    }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 40px;
+  align-items: center;
+}
 
-    .nav-links a {
-      text-decoration: none;
-      color: #fff;
-      transition: 0.3s;
-    }
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--cream);
+}
 
-    .nav-links a:hover {
-      color: #00ffcc;
-    }
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
 
-    /* HAMBURGER */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-    }
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+}
 
-    .hamburger span {
-      width: 25px;
-      height: 3px;
-      background: #fff;
-      margin: 4px 0;
-    }
+/* underline hover */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: var(--cream);
+  left: 0;
+  bottom: -5px;
+  transition: 0.3s;
+}
 
-    /* HERO */
-    .hero {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
+.nav-links a:hover::after {
+  width: 100%;
+}
 
-    .hero h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
 
-    .hero p {
-      color: #aaa;
-      margin-bottom: 20px;
-    }
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  margin: 4px;
+  transition: 0.4s;
+}
 
-    .btn {
-      padding: 10px 20px;
-      background: #00ffcc;
-      color: #000;
-      border: none;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+/* HERO */
+.hero {
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+              url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
-    .btn:hover {
-      background: #00ccaa;
-    }
+.hero h1 {
+  font-size: 52px;
+  color: var(--cream);
+}
 
-    /* SECTION */
-    section {
-      padding: 80px 30px;
-      text-align: center;
-    }
+.hero p {
+  color: #ccc;
+  margin: 15px 0;
+}
 
-    .card {
-      background: #1a1a1a;
-      padding: 20px;
-      margin: 15px;
-      border-radius: 10px;
-      display: inline-block;
-      width: 250px;
-    }
+.btn {
+  padding: 12px 25px;
+  background: var(--cream);
+  color: black;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    /* CONTACT */
-    .contact form {
-      max-width: 400px;
-      margin: auto;
-    }
+.btn:hover {
+  background: var(--accent);
+}
 
-    .contact input, .contact textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      background: #222;
-      border: none;
-      color: #fff;
-    }
+/* SECTION */
+section {
+  padding: 100px 40px;
+  text-align: center;
+}
 
-    /* MOBILE */
-    @media (max-width: 768px) {
-      .nav-links {
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background: #000;
-        width: 100%;
-        flex-direction: column;
-        text-align: center;
-        display: none;
-      }
+.card {
+  background: var(--dark2);
+  padding: 25px;
+  margin: 15px;
+  border-radius: 12px;
+  display: inline-block;
+  width: 260px;
+  transition: 0.4s;
+  border: 1px solid rgba(255,255,255,0.05);
+}
 
-      .nav-links.active {
-        display: flex;
-      }
+.card:hover {
+  transform: translateY(-10px);
+  border-color: var(--cream);
+}
 
-      .hamburger {
-        display: flex;
-      }
-    }
-  </style>
+/* ANIMATION */
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s ease;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CONTACT */
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background: var(--dark2);
+  border: none;
+  color: white;
+}
+
+/* MOBILE */
+@media(max-width:768px) {
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    background: var(--dark);
+    flex-direction: column;
+    display: none;
+    text-align: center;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
-  <header>
-    <div class="navbar">
-      <div class="logo">Brand</div>
+<header>
+  <div class="navbar">
+    <div class="logo">HAYWAY</div>
 
-      <div class="nav-links" id="navLinks">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-      </div>
-
-      <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
     </div>
-  </header>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div>
-      <h1>Dark Modern Landing Page</h1>
-      <p>Simple, clean, and powerful design for your brand</p>
-      <button class="btn">Get Started</button>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
-  </section>
+  </div>
+</header>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <h2>About</h2>
-    <p>This is a modern dark landing page for your business.</p>
-  </section>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div>
+    <h1>Elegant Dark Brand</h1>
+    <p>Build your premium identity</p>
+    <a href="#contact">
+      <button class="btn">Start Now</button>
+    </a>
+  </div>
+</section>
 
-  <!-- SERVICES -->
-  <section id="services">
-    <h2>Services</h2>
-    <div class="card">Design</div>
-    <div class="card">Branding</div>
-    <div class="card">Development</div>
-  </section>
+<!-- ABOUT -->
+<section id="about" class="fade">
+  <h2 style="color: var(--cream)">About</h2>
+  <p>We create modern and premium branding visuals.</p>
+</section>
 
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <h2>Contact</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="5" placeholder="Message"></textarea>
-      <button class="btn">Send</button>
-    </form>
-  </section>
+<!-- SERVICES -->
+<section id="services" class="fade">
+  <h2 style="color: var(--cream)">Services</h2>
+  <div class="card">Photography</div>
+  <div class="card">Streetwear</div>
+  <div class="card">Branding</div>
+</section>
 
-  <!-- JS -->
-  <script>
-    const hamburger = document.getElementById("hamburger");
-    const navLinks = document.getElementById("navLinks");
+<!-- CONTACT -->
+<section id="contact" class="fade">
+  <h2 style="color: var(--cream)">Contact</h2>
+  <form>
+    <input type="text" placeholder="Name">
+    <input type="email" placeholder="Email">
+    <textarea placeholder="Message"></textarea>
+    <button class="btn">Send</button>
+  </form>
+</section>
 
-    hamburger.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
-    });
-  </script>
+<script>
+/* HAMBURGER */
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
+
+/* SCROLL ANIMATION */
+const fades = document.querySelectorAll(".fade");
+
+window.addEventListener("scroll", () => {
+  fades.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      el.classList.add("show");
+    }
+  });
+});
+</script>
 
 </body>
 </html>
