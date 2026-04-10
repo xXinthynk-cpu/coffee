@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAYWAY PRO</title>
+<title>HAYWAY STORE</title>
 
 <style>
 :root {
@@ -24,7 +24,7 @@ header{position:fixed;width:100%;background:#000a;backdrop-filter:blur(10px);}
 .nav-links{display:flex;gap:20px;}
 .nav-links a{color:white;text-decoration:none;}
 
-.hamburger{display:none;flex-direction:column;cursor:pointer;}
+.hamburger{display:none;flex-direction:column;}
 .hamburger span{width:25px;height:3px;background:white;margin:4px}
 
 /* HERO */
@@ -35,7 +35,8 @@ header{position:fixed;width:100%;background:#000a;backdrop-filter:blur(10px);}
   display:flex;justify-content:center;align-items:center;text-align:center;
 }
 .hero h1{color:var(--cream);font-size:50px;}
-.btn{background:var(--cream);padding:12px 25px;border:none;cursor:pointer}
+
+.btn{background:var(--cream);padding:10px 20px;border:none;cursor:pointer}
 
 /* SECTION */
 section{padding:100px 40px;text-align:center}
@@ -43,52 +44,78 @@ section{padding:100px 40px;text-align:center}
 /* UPLOAD */
 .upload-box{
   border:2px dashed var(--cream);
-  padding:30px;
+  padding:20px;
   margin-bottom:20px;
   cursor:pointer;
+}
+
+/* FORM */
+.form-box{
+  margin-bottom:20px;
+}
+.form-box input, .form-box textarea{
+  width:100%;
+  margin:5px 0;
+  padding:8px;
+  background:var(--dark2);
+  border:none;
+  color:white;
 }
 
 /* GALLERY */
 .gallery{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:15px;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
 }
 
-.gallery-item{
-  position:relative;
+.card{
+  background:var(--dark2);
+  border-radius:10px;
+  overflow:hidden;
 }
 
-.gallery img{
+.card img{
   width:100%;
   height:250px;
   object-fit:cover;
-  transition:0.3s;
 }
 
-.gallery img:hover{transform:scale(1.1);}
+.card-content{
+  padding:15px;
+  text-align:left;
+}
 
-/* DELETE BTN */
+.price{
+  color:var(--cream);
+  font-weight:bold;
+}
+
+/* DELETE */
 .delete-btn{
-  position:absolute;
-  top:5px;
-  right:5px;
   background:red;
-  color:white;
   border:none;
-  cursor:pointer;
+  color:white;
   padding:5px;
+  cursor:pointer;
+  margin-top:10px;
 }
+
+/* FOOTER */
+footer{
+  background:#000;
+  padding:40px;
+  text-align:center;
+}
+
+footer h3{color:var(--cream);}
+footer p{color:#aaa;margin:5px 0;}
 
 /* MOBILE */
 @media(max-width:768px){
 .nav-links{
-  position:absolute;
-  top:60px;right:0;
-  width:100%;
-  background:black;
-  flex-direction:column;
-  display:none;
+  position:absolute;top:60px;right:0;width:100%;
+  background:black;flex-direction:column;display:none;
 }
 .nav-links.active{display:flex;}
 .hamburger{display:flex;}
@@ -104,7 +131,7 @@ section{padding:100px 40px;text-align:center}
 
 <div class="nav-links" id="navLinks">
 <a href="#home">Home</a>
-<a href="#gallery">Gallery</a>
+<a href="#gallery">Produk</a>
 <a href="#contact">Contact</a>
 </div>
 
@@ -117,109 +144,93 @@ section{padding:100px 40px;text-align:center}
 <!-- HERO -->
 <section class="hero" id="home">
 <div>
-<h1>Build Your Brand</h1>
-<br>
-<button class="btn">Start</button>
+<h1>HAYWAY STORE</h1>
+<p>Premium Streetwear</p>
 </div>
 </section>
 
 <!-- GALLERY -->
 <section id="gallery">
-<h2 style="color:var(--cream)">Your Gallery</h2>
+<h2 style="color:var(--cream)">Produk</h2>
 
-<div class="upload-box" id="uploadBox">
-Drop Image Here / Click to Upload
-<input type="file" id="fileInput" hidden multiple>
+<div class="form-box">
+<input id="desc" placeholder="Deskripsi produk">
+<input id="quality" placeholder="Kualitas bahan (misal: Premium Cotton)">
+<textarea id="detail" placeholder="Penjelasan bahan"></textarea>
+<input id="price" placeholder="Harga">
 </div>
 
-<div class="gallery" id="galleryContainer"></div>
+<div class="upload-box" id="uploadBox">
+Upload Gambar
+<input type="file" id="fileInput" hidden>
+</div>
+
+<div class="gallery" id="gallery"></div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
 <h2 style="color:var(--cream)">Contact</h2>
-<input placeholder="Name">
+<input placeholder="Nama">
 <input placeholder="Email">
-<textarea placeholder="Message"></textarea>
-<button class="btn">Send</button>
+<textarea placeholder="Pesan"></textarea>
+<button class="btn">Kirim</button>
 </section>
 
+<!-- FOOTER -->
+<footer>
+<h3>HAYWAY</h3>
+<p>Streetwear Brand Indonesia</p>
+<p>Instagram: @hayway</p>
+<p>WhatsApp: 08123456789</p>
+<p>© 2026 All Rights Reserved</p>
+</footer>
+
 <script>
-// HAMBURGER
+// NAV
 const hamburger=document.getElementById("hamburger");
 const navLinks=document.getElementById("navLinks");
 hamburger.onclick=()=>navLinks.classList.toggle("active");
 
-// UPLOAD SYSTEM
+// ELEMENT
 const uploadBox=document.getElementById("uploadBox");
 const fileInput=document.getElementById("fileInput");
-const gallery=document.getElementById("galleryContainer");
+const gallery=document.getElementById("gallery");
 
 uploadBox.onclick=()=>fileInput.click();
 
-uploadBox.addEventListener("dragover",e=>{
-  e.preventDefault();
-  uploadBox.style.background="#222";
-});
-
-uploadBox.addEventListener("dragleave",()=>{
-  uploadBox.style.background="transparent";
-});
-
-uploadBox.addEventListener("drop",e=>{
-  e.preventDefault();
-  handleFiles(e.dataTransfer.files);
-});
-
-fileInput.addEventListener("change",()=>{
-  handleFiles(fileInput.files);
-});
-
-function handleFiles(files){
-  [...files].forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=e=>{
-      addImage(e.target.result);
-      saveImage(e.target.result);
-    }
-    reader.readAsDataURL(file);
-  });
+fileInput.onchange=()=>{
+  const file=fileInput.files[0];
+  const reader=new FileReader();
+  reader.onload=e=>{
+    addProduct(e.target.result);
+  }
+  reader.readAsDataURL(file);
 }
 
-function addImage(src){
-  const div=document.createElement("div");
-  div.classList.add("gallery-item");
+function addProduct(img){
+  const desc=document.getElementById("desc").value;
+  const quality=document.getElementById("quality").value;
+  const detail=document.getElementById("detail").value;
+  const price=document.getElementById("price").value;
 
-  div.innerHTML=`
-    <img src="${src}">
-    <button class="delete-btn">X</button>
+  const card=document.createElement("div");
+  card.className="card";
+
+  card.innerHTML=`
+    <img src="${img}">
+    <div class="card-content">
+      <h4>${desc}</h4>
+      <p><b>Kualitas:</b> ${quality}</p>
+      <p>${detail}</p>
+      <p class="price">Rp ${price}</p>
+      <button class="delete-btn">Hapus</button>
+    </div>
   `;
 
-  div.querySelector("button").onclick=()=>{
-    div.remove();
-    removeImage(src);
-  }
+  card.querySelector(".delete-btn").onclick=()=>card.remove();
 
-  gallery.appendChild(div);
-}
-
-// LOCAL STORAGE
-function saveImage(src){
-  let images=JSON.parse(localStorage.getItem("images")||"[]");
-  images.push(src);
-  localStorage.setItem("images",JSON.stringify(images));
-}
-
-function removeImage(src){
-  let images=JSON.parse(localStorage.getItem("images")||"[]");
-  images=images.filter(i=>i!==src);
-  localStorage.setItem("images",JSON.stringify(images));
-}
-
-// LOAD DATA
-window.onload=()=>{
-  let images=JSON.parse(localStorage.getItem("images")||"[]");
-  images.forEach(src=>addImage(src));
+  gallery.appendChild(card);
 }
 </script>
 
