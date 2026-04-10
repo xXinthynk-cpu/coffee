@@ -3,140 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAYWAY Brand</title>
+<title>HAYWAY PRO</title>
 
 <style>
 :root {
-  --dark: #0d0d0d;
-  --dark2: #1a1a1a;
-  --cream: #e6d3b3;
+  --dark:#0d0d0d;
+  --dark2:#1a1a1a;
+  --cream:#e6d3b3;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+body{background:var(--dark);color:white;}
+html{scroll-behavior:smooth}
 
-html { scroll-behavior: smooth; }
+/* NAV */
+header{position:fixed;width:100%;background:#000a;backdrop-filter:blur(10px);}
+.navbar{display:flex;justify-content:space-between;padding:18px 40px;}
+.logo{color:var(--cream);font-weight:bold;}
 
-body {
-  background: var(--dark);
-  color: white;
-}
+.nav-links{display:flex;gap:20px;}
+.nav-links a{color:white;text-decoration:none;}
 
-/* NAVBAR */
-header {
-  position: fixed;
-  width: 100%;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 18px 40px;
-}
-
-.logo { color: var(--cream); font-weight: bold; }
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-}
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-}
-.hamburger span {
-  width: 25px;
-  height: 3px;
-  background: white;
-  margin: 4px;
-}
+.hamburger{display:none;flex-direction:column;cursor:pointer;}
+.hamburger span{width:25px;height:3px;background:white;margin:4px}
 
 /* HERO */
-.hero {
-  height: 100vh;
-  background: linear-gradient(#000a, #000f),
-    url('https://images.unsplash.com/photo-1491553895911-0055eca6402d');
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.hero{
+  height:100vh;
+  background:linear-gradient(#000a,#000f),
+  url('https://images.unsplash.com/photo-1491553895911-0055eca6402d');
+  display:flex;justify-content:center;align-items:center;text-align:center;
 }
-
-.hero h1 { color: var(--cream); font-size: 50px; }
-
-.btn {
-  background: var(--cream);
-  padding: 12px 25px;
-  border: none;
-  cursor: pointer;
-}
+.hero h1{color:var(--cream);font-size:50px;}
+.btn{background:var(--cream);padding:12px 25px;border:none;cursor:pointer}
 
 /* SECTION */
-section { padding: 100px 40px; text-align: center; }
+section{padding:100px 40px;text-align:center}
+
+/* UPLOAD */
+.upload-box{
+  border:2px dashed var(--cream);
+  padding:30px;
+  margin-bottom:20px;
+  cursor:pointer;
+}
 
 /* GALLERY */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 15px;
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
 }
 
-.gallery img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  transition: 0.4s;
+.gallery-item{
+  position:relative;
 }
 
-.gallery img:hover {
-  transform: scale(1.1);
+.gallery img{
+  width:100%;
+  height:250px;
+  object-fit:cover;
+  transition:0.3s;
 }
 
-/* CARD */
-.card {
-  background: var(--dark2);
-  padding: 20px;
-  margin: 10px;
-  display: inline-block;
-}
+.gallery img:hover{transform:scale(1.1);}
 
-/* CONTACT */
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  background: var(--dark2);
-  border: none;
-  color: white;
+/* DELETE BTN */
+.delete-btn{
+  position:absolute;
+  top:5px;
+  right:5px;
+  background:red;
+  color:white;
+  border:none;
+  cursor:pointer;
+  padding:5px;
 }
 
 /* MOBILE */
 @media(max-width:768px){
-  .nav-links {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    background: black;
-    width: 100%;
-    flex-direction: column;
-    display: none;
-  }
-  .nav-links.active { display: flex; }
-  .hamburger { display: flex; }
+.nav-links{
+  position:absolute;
+  top:60px;right:0;
+  width:100%;
+  background:black;
+  flex-direction:column;
+  display:none;
+}
+.nav-links.active{display:flex;}
+.hamburger{display:flex;}
 }
 </style>
 </head>
@@ -144,70 +99,128 @@ input, textarea {
 <body>
 
 <header>
-  <div class="navbar">
-    <div class="logo">HAYWAY</div>
+<div class="navbar">
+<div class="logo">HAYWAY</div>
 
-    <div class="nav-links" id="navLinks">
-      <a href="#home">Home</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-    </div>
+<div class="nav-links" id="navLinks">
+<a href="#home">Home</a>
+<a href="#gallery">Gallery</a>
+<a href="#contact">Contact</a>
+</div>
 
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
+<div class="hamburger" id="hamburger">
+<span></span><span></span><span></span>
+</div>
+</div>
 </header>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div>
-    <h1>Build Your Identity</h1>
-    <br>
-    <a href="https://wa.me/6281234567890">
-      <button class="btn">Order Now</button>
-    </a>
-  </div>
+<div>
+<h1>Build Your Brand</h1>
+<br>
+<button class="btn">Start</button>
+</div>
 </section>
 
 <!-- GALLERY -->
 <section id="gallery">
-  <h2 style="color:var(--cream)">Gallery</h2>
-  <div class="gallery">
-    <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
-    <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
-    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d">
-    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b">
-  </div>
-</section>
+<h2 style="color:var(--cream)">Your Gallery</h2>
 
-<!-- SERVICES -->
-<section id="services">
-  <h2 style="color:var(--cream)">Services</h2>
-  <div class="card">Photography</div>
-  <div class="card">Streetwear</div>
-  <div class="card">Branding</div>
+<div class="upload-box" id="uploadBox">
+Drop Image Here / Click to Upload
+<input type="file" id="fileInput" hidden multiple>
+</div>
+
+<div class="gallery" id="galleryContainer"></div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <h2 style="color:var(--cream)">Contact</h2>
-  <form>
-    <input type="text" placeholder="Name">
-    <input type="email" placeholder="Email">
-    <textarea placeholder="Message"></textarea>
-    <button class="btn">Send</button>
-  </form>
+<h2 style="color:var(--cream)">Contact</h2>
+<input placeholder="Name">
+<input placeholder="Email">
+<textarea placeholder="Message"></textarea>
+<button class="btn">Send</button>
 </section>
 
 <script>
-const hamburger = document.getElementById("hamburger");
-const navLinks = document.getElementById("navLinks");
+// HAMBURGER
+const hamburger=document.getElementById("hamburger");
+const navLinks=document.getElementById("navLinks");
+hamburger.onclick=()=>navLinks.classList.toggle("active");
 
-hamburger.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
+// UPLOAD SYSTEM
+const uploadBox=document.getElementById("uploadBox");
+const fileInput=document.getElementById("fileInput");
+const gallery=document.getElementById("galleryContainer");
+
+uploadBox.onclick=()=>fileInput.click();
+
+uploadBox.addEventListener("dragover",e=>{
+  e.preventDefault();
+  uploadBox.style.background="#222";
 });
+
+uploadBox.addEventListener("dragleave",()=>{
+  uploadBox.style.background="transparent";
+});
+
+uploadBox.addEventListener("drop",e=>{
+  e.preventDefault();
+  handleFiles(e.dataTransfer.files);
+});
+
+fileInput.addEventListener("change",()=>{
+  handleFiles(fileInput.files);
+});
+
+function handleFiles(files){
+  [...files].forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      addImage(e.target.result);
+      saveImage(e.target.result);
+    }
+    reader.readAsDataURL(file);
+  });
+}
+
+function addImage(src){
+  const div=document.createElement("div");
+  div.classList.add("gallery-item");
+
+  div.innerHTML=`
+    <img src="${src}">
+    <button class="delete-btn">X</button>
+  `;
+
+  div.querySelector("button").onclick=()=>{
+    div.remove();
+    removeImage(src);
+  }
+
+  gallery.appendChild(div);
+}
+
+// LOCAL STORAGE
+function saveImage(src){
+  let images=JSON.parse(localStorage.getItem("images")||"[]");
+  images.push(src);
+  localStorage.setItem("images",JSON.stringify(images));
+}
+
+function removeImage(src){
+  let images=JSON.parse(localStorage.getItem("images")||"[]");
+  images=images.filter(i=>i!==src);
+  localStorage.setItem("images",JSON.stringify(images));
+}
+
+// LOAD DATA
+window.onload=()=>{
+  let images=JSON.parse(localStorage.getItem("images")||"[]");
+  images.forEach(src=>addImage(src));
+}
 </script>
 
 </body>
