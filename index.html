@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elegant Dark Landing</title>
+<title>HAYWAY Brand</title>
 
 <style>
 :root {
   --dark: #0d0d0d;
   --dark2: #1a1a1a;
   --cream: #e6d3b3;
-  --accent: #c2a27c;
 }
 
 * {
@@ -20,154 +19,105 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--dark);
-  color: #fff;
+  color: white;
 }
 
 /* NAVBAR */
 header {
   position: fixed;
   width: 100%;
-  top: 0;
-  background: rgba(13,13,13,0.7);
+  background: rgba(0,0,0,0.6);
   backdrop-filter: blur(10px);
-  z-index: 1000;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   padding: 18px 40px;
-  align-items: center;
 }
 
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--cream);
-}
+.logo { color: var(--cream); font-weight: bold; }
 
 .nav-links {
   display: flex;
-  gap: 25px;
+  gap: 20px;
 }
 
 .nav-links a {
-  color: #fff;
+  color: white;
   text-decoration: none;
-  position: relative;
 }
 
-/* underline hover */
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 2px;
-  background: var(--cream);
-  left: 0;
-  bottom: -5px;
-  transition: 0.3s;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-/* HAMBURGER */
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
 }
-
 .hamburger span {
   width: 25px;
   height: 3px;
   background: white;
   margin: 4px;
-  transition: 0.4s;
 }
 
 /* HERO */
 .hero {
   height: 100vh;
-  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
-              url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+  background: linear-gradient(#000a, #000f),
+    url('https://images.unsplash.com/photo-1491553895911-0055eca6402d');
   background-size: cover;
-  background-position: center;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-.hero h1 {
-  font-size: 52px;
-  color: var(--cream);
-}
-
-.hero p {
-  color: #ccc;
-  margin: 15px 0;
-}
+.hero h1 { color: var(--cream); font-size: 50px; }
 
 .btn {
-  padding: 12px 25px;
   background: var(--cream);
-  color: black;
+  padding: 12px 25px;
   border: none;
   cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background: var(--accent);
 }
 
 /* SECTION */
-section {
-  padding: 100px 40px;
-  text-align: center;
+section { padding: 100px 40px; text-align: center; }
+
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 15px;
 }
 
+.gallery img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: 0.4s;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+/* CARD */
 .card {
   background: var(--dark2);
-  padding: 25px;
-  margin: 15px;
-  border-radius: 12px;
+  padding: 20px;
+  margin: 10px;
   display: inline-block;
-  width: 260px;
-  transition: 0.4s;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  border-color: var(--cream);
-}
-
-/* ANIMATION */
-.fade {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: 1s ease;
-}
-
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* CONTACT */
 input, textarea {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   margin: 10px 0;
   background: var(--dark2);
   border: none;
@@ -175,25 +125,18 @@ input, textarea {
 }
 
 /* MOBILE */
-@media(max-width:768px) {
+@media(max-width:768px){
   .nav-links {
     position: absolute;
-    top: 70px;
+    top: 60px;
     right: 0;
+    background: black;
     width: 100%;
-    background: var(--dark);
     flex-direction: column;
     display: none;
-    text-align: center;
   }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .hamburger {
-    display: flex;
-  }
+  .nav-links.active { display: flex; }
+  .hamburger { display: flex; }
 }
 </style>
 </head>
@@ -206,15 +149,13 @@ input, textarea {
 
     <div class="nav-links" id="navLinks">
       <a href="#home">Home</a>
-      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
       <a href="#services">Services</a>
       <a href="#contact">Contact</a>
     </div>
 
     <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </div>
   </div>
 </header>
@@ -222,31 +163,36 @@ input, textarea {
 <!-- HERO -->
 <section class="hero" id="home">
   <div>
-    <h1>Elegant Dark Brand</h1>
-    <p>Build your premium identity</p>
-    <a href="#contact">
-      <button class="btn">Start Now</button>
+    <h1>Build Your Identity</h1>
+    <br>
+    <a href="https://wa.me/6281234567890">
+      <button class="btn">Order Now</button>
     </a>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="fade">
-  <h2 style="color: var(--cream)">About</h2>
-  <p>We create modern and premium branding visuals.</p>
+<!-- GALLERY -->
+<section id="gallery">
+  <h2 style="color:var(--cream)">Gallery</h2>
+  <div class="gallery">
+    <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
+    <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
+    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d">
+    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b">
+  </div>
 </section>
 
 <!-- SERVICES -->
-<section id="services" class="fade">
-  <h2 style="color: var(--cream)">Services</h2>
+<section id="services">
+  <h2 style="color:var(--cream)">Services</h2>
   <div class="card">Photography</div>
   <div class="card">Streetwear</div>
   <div class="card">Branding</div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="fade">
-  <h2 style="color: var(--cream)">Contact</h2>
+<section id="contact">
+  <h2 style="color:var(--cream)">Contact</h2>
   <form>
     <input type="text" placeholder="Name">
     <input type="email" placeholder="Email">
@@ -256,24 +202,11 @@ input, textarea {
 </section>
 
 <script>
-/* HAMBURGER */
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 
 hamburger.addEventListener("click", () => {
   navLinks.classList.toggle("active");
-});
-
-/* SCROLL ANIMATION */
-const fades = document.querySelectorAll(".fade");
-
-window.addEventListener("scroll", () => {
-  fades.forEach(el => {
-    const top = el.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100){
-      el.classList.add("show");
-    }
-  });
 });
 </script>
 
