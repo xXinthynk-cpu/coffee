@@ -8,9 +8,7 @@
 <style>
 :root{
   --black:#0a0a0a;
-  --dark:#111;
   --cream:#e6d3b3;
-  --white:#fff;
 }
 
 *{
@@ -22,7 +20,7 @@
 
 body{
   background:var(--black);
-  color:var(--white);
+  color:white;
 }
 
 /* NAV */
@@ -41,7 +39,6 @@ header{
 .logo{
   font-weight:bold;
   letter-spacing:3px;
-  font-size:18px;
 }
 
 .menu{
@@ -58,6 +55,11 @@ header{
 /* HERO */
 .hero{
   height:100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
+    url('https://images.unsplash.com/photo-1520975916090-3105956dac38');
+  background-size:cover;
+  background-position:center;
   display:flex;
   align-items:center;
   padding:0 40px;
@@ -66,24 +68,30 @@ header{
 .hero h1{
   font-size:80px;
   line-height:0.9;
+  animation:fadeUp 1s ease;
 }
 
-.hero span{
-  color:var(--cream);
-}
+.hero span{color:var(--cream);}
 
 .hero p{
   margin-top:20px;
   color:#aaa;
+  animation:fadeUp 1.5s ease;
 }
 
-/* BUTTON */
 .btn{
   margin-top:20px;
   padding:12px 30px;
   background:var(--cream);
   border:none;
   cursor:pointer;
+  animation:fadeUp 2s ease;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
 /* SECTION */
@@ -91,7 +99,26 @@ section{
   padding:100px 40px;
 }
 
-/* GRID PRODUK */
+/* SCROLL ANIMATION */
+.fade{
+  opacity:0;
+  transform:translateY(50px);
+  transition:1s;
+}
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* BANNER */
+.banner{
+  font-size:60px;
+  text-align:center;
+  font-weight:bold;
+}
+.banner span{color:var(--cream);}
+
+/* PRODUCTS */
 .products{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -114,7 +141,6 @@ section{
   transform:scale(1.1);
 }
 
-/* OVERLAY */
 .overlay{
   position:absolute;
   bottom:0;
@@ -123,26 +149,7 @@ section{
   background:linear-gradient(transparent, black);
 }
 
-.overlay h3{
-  font-size:18px;
-}
-
-.price{
-  color:var(--cream);
-  font-weight:bold;
-}
-
-/* BIG TEXT SECTION */
-.banner{
-  font-size:60px;
-  font-weight:bold;
-  text-align:center;
-  line-height:1.2;
-}
-
-.banner span{
-  color:var(--cream);
-}
+.price{color:var(--cream);}
 
 /* FOOTER */
 footer{
@@ -175,23 +182,23 @@ footer{
 <!-- HERO -->
 <section class="hero">
   <div>
-    <h1>WEAR<br><span>YOUR</span><br>ATTITUDE</h1>
-    <p>Streetwear built for identity</p>
+    <h1>OWN THE <br><span>STREET</span></h1>
+    <p>Built for bold identity</p>
     <button class="btn">SHOP NOW</button>
   </div>
 </section>
 
 <!-- BANNER -->
-<section class="banner">
-  BUILT FOR THE <span>STREETS</span>
+<section class="banner fade">
+  STREET IS <span>YOURS</span>
 </section>
 
 <!-- PRODUK -->
-<section>
+<section class="fade">
   <div class="products">
 
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
+      <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
       <div class="overlay">
         <h3>Oversize Hoodie</h3>
         <p class="price">Rp 250.000</p>
@@ -199,7 +206,7 @@ footer{
     </div>
 
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
+      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d">
       <div class="overlay">
         <h3>Street T-Shirt</h3>
         <p class="price">Rp 150.000</p>
@@ -207,9 +214,9 @@ footer{
     </div>
 
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d">
+      <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
       <div class="overlay">
-        <h3>Cargo Outfit</h3>
+        <h3>Cargo Fit</h3>
         <p class="price">Rp 300.000</p>
       </div>
     </div>
@@ -218,8 +225,22 @@ footer{
 </section>
 
 <footer>
-  <p>© 2026 HAYWAY — STREETWEAR BRAND</p>
+  <p>© 2026 HAYWAY — STREETWEAR</p>
 </footer>
+
+<script>
+// SCROLL ANIMATION
+const fades = document.querySelectorAll(".fade");
+
+window.addEventListener("scroll", ()=>{
+  fades.forEach(el=>{
+    const top = el.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      el.classList.add("show");
+    }
+  });
+});
+</script>
 
 </body>
 </html>
