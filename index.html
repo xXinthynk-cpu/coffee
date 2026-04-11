@@ -15,21 +15,20 @@
 *{
 margin:0;padding:0;box-sizing:border-box;
 font-family:Arial, Helvetica, sans-serif;
+scroll-behavior:smooth;
 }
 
 body{
 background:var(--black);
 color:white;
-overflow-x:hidden;
 }
 
 /* NAV */
 header{
 position:fixed;
 width:100%;
+background:#000a;
 z-index:1000;
-background:rgba(0,0,0,0.5);
-backdrop-filter:blur(10px);
 }
 
 .nav{
@@ -38,17 +37,12 @@ justify-content:space-between;
 padding:20px 40px;
 }
 
-.logo{
-color:var(--cream);
-font-weight:bold;
-letter-spacing:3px;
-}
+.logo{color:var(--cream);font-weight:bold;}
 
 .menu a{
-margin-left:25px;
+margin-left:20px;
 text-decoration:none;
 color:white;
-font-size:13px;
 }
 
 /* HERO */
@@ -63,65 +57,89 @@ url('https://images.unsplash.com/photo-1520975916090-3105956dac38');
 background-size:cover;
 }
 
-.hero h1{
-font-size:90px;
-line-height:0.9;
-}
-
+.hero h1{font-size:70px;}
 .hero span{color:var(--cream);}
 
 /* SECTION */
-section{
-padding:120px 40px;
-}
+section{padding:100px 40px}
 
 /* PRODUCTS */
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
+gap:20px;
 }
 
 .product{
-position:relative;
-overflow:hidden;
-background:var(--dark);
+cursor:pointer;
 }
 
-/* IMAGE */
 .product img{
 width:100%;
-height:320px;
+height:300px;
 object-fit:cover;
-transition:0.5s;
-}
-
-/* HOVER EFFECT */
-.product:hover img{
-transform:scale(1.15);
-filter:brightness(0.5);
-}
-
-/* TEXT APPEAR */
-.product-info{
-position:absolute;
-bottom:20px;
-left:20px;
-opacity:0;
 transition:0.4s;
 }
 
-.product:hover .product-info{
-opacity:1;
+.product:hover img{
+transform:scale(1.05);
 }
 
-.product-info h3{
-font-size:20px;
+.product-info{
+margin-top:10px;
 }
 
-.price{
-color:var(--cream);
-font-weight:bold;
+.price{color:var(--cream)}
+
+/* DETAIL PAGE */
+.detail{
+display:none;
+padding:120px 40px;
+}
+
+.detail.active{
+display:block;
+}
+
+.detail-container{
+display:flex;
+gap:40px;
+flex-wrap:wrap;
+}
+
+.detail img{
+width:400px;
+cursor:pointer;
+}
+
+.detail-info{
+max-width:400px;
+}
+
+/* SIZE */
+.sizes button{
+margin:5px;
+padding:8px 12px;
+border:1px solid var(--cream);
+background:none;
+color:white;
+cursor:pointer;
+}
+
+.sizes button.active{
+background:var(--cream);
+color:black;
+}
+
+/* QTY */
+.qty{
+margin:10px 0;
+display:flex;
+gap:10px;
+}
+
+.qty button{
+padding:5px 10px;
 }
 
 /* CART */
@@ -147,21 +165,12 @@ transition:0.4s;
 z-index:1002;
 }
 
-.cart.active{right:0;}
+.cart.active{right:0}
 
-.cart-item{
-margin:10px 0;
-border-bottom:1px solid #333;
-padding-bottom:5px;
-}
+.cart-item{margin:10px 0}
+.total{color:var(--cream)}
 
-.total{
-margin-top:20px;
-font-weight:bold;
-color:var(--cream);
-}
-
-/* MODAL */
+/* MODAL IMAGE */
 .modal{
 display:none;
 position:fixed;
@@ -173,37 +182,9 @@ align-items:center;
 z-index:2000;
 }
 
-.modal-box{
-background:#111;
-padding:30px;
-width:90%;
-max-width:400px;
-}
-
-/* SIZE */
-.sizes button{
-margin:5px;
-padding:8px 12px;
-border:1px solid var(--cream);
-background:none;
-color:white;
-cursor:pointer;
-}
-
-.sizes button.active{
-background:var(--cream);
-color:black;
-}
-
-/* QTY */
-.qty{
-display:flex;
-gap:10px;
-margin:15px 0;
-}
-
-.qty button{
-padding:5px 10px;
+.modal img{
+max-width:80%;
+max-height:80%;
 }
 
 /* FOOTER */
@@ -211,11 +192,6 @@ footer{
 text-align:center;
 padding:40px;
 color:#777;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-.hero h1{font-size:45px;}
 }
 </style>
 </head>
@@ -226,8 +202,8 @@ color:#777;
 <div class="nav">
 <div class="logo">HAYWAY</div>
 <div class="menu">
-<a href="#">HOME</a>
-<a href="#">SHOP</a>
+<a href="#home">Home</a>
+<a href="#shop">Shop</a>
 </div>
 </div>
 </header>
@@ -237,22 +213,22 @@ color:#777;
 <div class="cart" id="cart">
 <h3>Cart</h3>
 <div id="cartItems"></div>
-<p class="total">Total: Rp <span id="total">0</span></p>
+<p>Total: Rp <span id="total">0</span></p>
 <button onclick="checkout()">Checkout</button>
 </div>
 
 <!-- HERO -->
-<section class="hero">
-<h1>RULE THE <br><span>STREET</span></h1>
+<section class="hero" id="home">
+<h1>OWN THE <span>STREET</span></h1>
 </section>
 
-<!-- PRODUK -->
-<section>
-<h2 style="color:var(--cream)">COLLECTION</h2>
+<!-- SHOP -->
+<section id="shop">
+<h2 style="color:var(--cream)">Collection</h2>
 
 <div class="products">
 
-<div class="product" onclick="openModal('Hoodie Oversize',250000)">
+<div class="product" onclick="openDetail('Hoodie Oversize',250000,'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c')">
 <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
 <div class="product-info">
 <h3>Hoodie Oversize</h3>
@@ -260,12 +236,43 @@ color:#777;
 </div>
 </div>
 
-<div class="product" onclick="openModal('Street T-Shirt',150000)">
+<div class="product" onclick="openDetail('Street T-Shirt',150000,'https://images.unsplash.com/photo-1490481651871-ab68de25d43d')">
 <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d">
 <div class="product-info">
 <h3>Street T-Shirt</h3>
 <p class="price">Rp 150.000</p>
 </div>
+</div>
+
+</div>
+</section>
+
+<!-- DETAIL -->
+<section class="detail" id="detailPage">
+<div class="detail-container">
+
+<img id="dImg">
+
+<div class="detail-info">
+<h2 id="dName"></h2>
+<p id="dPrice"></p>
+
+<div class="sizes">
+<p>Size:</p>
+<button onclick="selectSize(this)">S</button>
+<button onclick="selectSize(this)">M</button>
+<button onclick="selectSize(this)">L</button>
+<button onclick="selectSize(this)">XL</button>
+</div>
+
+<div class="qty">
+<button onclick="changeQty(-1)">-</button>
+<span id="qty">1</span>
+<button onclick="changeQty(1)">+</button>
+</div>
+
+<button onclick="addToCart()">Add to Cart</button>
+
 </div>
 
 </div>
@@ -277,49 +284,25 @@ color:#777;
 
 <!-- MODAL -->
 <div class="modal" id="modal">
-<div class="modal-box">
-
-<h3 id="mName"></h3>
-<p id="mPrice"></p>
-
-<!-- SIZE -->
-<div class="sizes">
-<p>Pilih Size:</p>
-<button onclick="selectSize(this)">S</button>
-<button onclick="selectSize(this)">M</button>
-<button onclick="selectSize(this)">L</button>
-<button onclick="selectSize(this)">XL</button>
-</div>
-
-<!-- QTY -->
-<div class="qty">
-<button onclick="changeQty(-1)">-</button>
-<span id="qty">1</span>
-<button onclick="changeQty(1)">+</button>
-</div>
-
-<button onclick="addToCart()">Add to Cart</button>
-<button onclick="closeModal()">Close</button>
-
-</div>
+<img id="modalImg">
 </div>
 
 <script>
 let cart=[];
-let currentProduct={};
 let quantity=1;
+let currentProduct={};
 let selectedSize="M";
 
-/* MODAL */
-function openModal(name,price){
-document.getElementById("modal").style.display="flex";
-document.getElementById("mName").innerText=name;
-document.getElementById("mPrice").innerText="Rp "+price;
+/* DETAIL */
+function openDetail(name,price,img){
+document.getElementById("detailPage").classList.add("active");
+window.scrollTo(0,document.getElementById("detailPage").offsetTop);
+
+document.getElementById("dName").innerText=name;
+document.getElementById("dPrice").innerText="Rp "+price;
+document.getElementById("dImg").src=img;
 
 currentProduct={name,price};
-quantity=1;
-selectedSize="M";
-document.getElementById("qty").innerText=quantity;
 }
 
 /* SIZE */
@@ -344,7 +327,6 @@ document.getElementById("cart").classList.toggle("active");
 function addToCart(){
 cart.push({...currentProduct,qty:quantity,size:selectedSize});
 renderCart();
-closeModal();
 }
 
 function renderCart(){
@@ -354,7 +336,6 @@ let total=0;
 
 cart.forEach(item=>{
 total+=item.price*item.qty;
-
 container.innerHTML+=`
 <div class="cart-item">
 ${item.name} (${item.size}) x${item.qty}
@@ -367,17 +348,21 @@ document.getElementById("total").innerText=total;
 /* CHECKOUT */
 function checkout(){
 let text="Order:%0A";
-
 cart.forEach(item=>{
 text+=`- ${item.name} (${item.size}) x${item.qty}%0A`;
 });
-
 window.open(`https://wa.me/6281234567890?text=${text}`);
 }
 
-function closeModal(){
-document.getElementById("modal").style.display="none";
-}
+/* IMAGE POPUP */
+document.getElementById("dImg").onclick=function(){
+document.getElementById("modal").style.display="flex";
+document.getElementById("modalImg").src=this.src;
+};
+
+document.getElementById("modal").onclick=function(){
+this.style.display="none";
+};
 </script>
 
 </body>
