@@ -7,20 +7,28 @@
 
 <style>
 :root{
---black:#0a0a0a;
+--black:#050505;
 --dark:#111;
 --cream:#e6d3b3;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
-body{background:var(--black);color:white}
+*{
+margin:0;padding:0;box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:var(--black);
+color:white;
+overflow-x:hidden;
+}
 
 /* NAV */
 header{
 position:fixed;
 width:100%;
 z-index:1000;
-background:rgba(0,0,0,0.6);
+background:rgba(0,0,0,0.5);
 backdrop-filter:blur(10px);
 }
 
@@ -30,12 +38,17 @@ justify-content:space-between;
 padding:20px 40px;
 }
 
-.logo{color:var(--cream);font-weight:bold;letter-spacing:2px;}
+.logo{
+color:var(--cream);
+font-weight:bold;
+letter-spacing:3px;
+}
 
 .menu a{
-margin-left:20px;
+margin-left:25px;
 text-decoration:none;
 color:white;
+font-size:13px;
 }
 
 /* HERO */
@@ -44,73 +57,71 @@ height:100vh;
 display:flex;
 align-items:center;
 padding:0 40px;
-background:linear-gradient(#000a,#000f),
+background:
+linear-gradient(#000a,#000f),
 url('https://images.unsplash.com/photo-1520975916090-3105956dac38');
 background-size:cover;
 }
 
 .hero h1{
-font-size:70px;
+font-size:90px;
+line-height:0.9;
 }
 
 .hero span{color:var(--cream);}
 
 /* SECTION */
-section{padding:100px 40px}
+section{
+padding:120px 40px;
+}
 
-/* GRID */
+/* PRODUCTS */
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+gap:30px;
 }
 
 .product{
-background:var(--dark);
-border-radius:10px;
+position:relative;
 overflow:hidden;
-cursor:pointer;
+background:var(--dark);
 }
 
+/* IMAGE */
 .product img{
 width:100%;
-height:300px;
+height:320px;
 object-fit:cover;
+transition:0.5s;
+}
+
+/* HOVER EFFECT */
+.product:hover img{
+transform:scale(1.15);
+filter:brightness(0.5);
+}
+
+/* TEXT APPEAR */
+.product-info{
+position:absolute;
+bottom:20px;
+left:20px;
+opacity:0;
 transition:0.4s;
 }
 
-.product:hover img{transform:scale(1.1)}
-
-.product-info{padding:15px}
-.price{color:var(--cream)}
-
-/* MODAL */
-.modal{
-display:none;
-position:fixed;
-width:100%;
-height:100%;
-background:#000c;
-justify-content:center;
-align-items:center;
-z-index:2000;
+.product:hover .product-info{
+opacity:1;
 }
 
-.modal-content{
-background:#111;
-padding:20px;
-max-width:500px;
-width:90%;
+.product-info h3{
+font-size:20px;
 }
 
-.qty{
-display:flex;
-gap:10px;
-margin:10px 0;
-}
-
-.qty button{
-padding:5px 10px;
+.price{
+color:var(--cream);
+font-weight:bold;
 }
 
 /* CART */
@@ -121,6 +132,7 @@ right:20px;
 background:var(--cream);
 padding:10px;
 cursor:pointer;
+z-index:1001;
 }
 
 .cart{
@@ -132,24 +144,78 @@ height:100%;
 background:#111;
 padding:20px;
 transition:0.4s;
+z-index:1002;
 }
 
-.cart.active{right:0}
+.cart.active{right:0;}
 
-.cart-item{margin:10px 0}
+.cart-item{
+margin:10px 0;
+border-bottom:1px solid #333;
+padding-bottom:5px;
+}
 
-.total{margin-top:20px;font-weight:bold}
+.total{
+margin-top:20px;
+font-weight:bold;
+color:var(--cream);
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+width:100%;
+height:100%;
+background:#000d;
+justify-content:center;
+align-items:center;
+z-index:2000;
+}
+
+.modal-box{
+background:#111;
+padding:30px;
+width:90%;
+max-width:400px;
+}
+
+/* SIZE */
+.sizes button{
+margin:5px;
+padding:8px 12px;
+border:1px solid var(--cream);
+background:none;
+color:white;
+cursor:pointer;
+}
+
+.sizes button.active{
+background:var(--cream);
+color:black;
+}
+
+/* QTY */
+.qty{
+display:flex;
+gap:10px;
+margin:15px 0;
+}
+
+.qty button{
+padding:5px 10px;
+}
 
 /* FOOTER */
 footer{
 text-align:center;
 padding:40px;
-color:#aaa;
+color:#777;
 }
 
 /* MOBILE */
 @media(max-width:768px){
-.hero h1{font-size:40px}
+.hero h1{font-size:45px;}
 }
 </style>
 </head>
@@ -177,12 +243,12 @@ color:#aaa;
 
 <!-- HERO -->
 <section class="hero">
-<h1>OWN THE <span>STREET</span></h1>
+<h1>RULE THE <br><span>STREET</span></h1>
 </section>
 
 <!-- PRODUK -->
 <section>
-<h2 style="color:var(--cream)">Shop</h2>
+<h2 style="color:var(--cream)">COLLECTION</h2>
 
 <div class="products">
 
@@ -211,10 +277,21 @@ color:#aaa;
 
 <!-- MODAL -->
 <div class="modal" id="modal">
-<div class="modal-content">
+<div class="modal-box">
+
 <h3 id="mName"></h3>
 <p id="mPrice"></p>
 
+<!-- SIZE -->
+<div class="sizes">
+<p>Pilih Size:</p>
+<button onclick="selectSize(this)">S</button>
+<button onclick="selectSize(this)">M</button>
+<button onclick="selectSize(this)">L</button>
+<button onclick="selectSize(this)">XL</button>
+</div>
+
+<!-- QTY -->
 <div class="qty">
 <button onclick="changeQty(-1)">-</button>
 <span id="qty">1</span>
@@ -223,6 +300,7 @@ color:#aaa;
 
 <button onclick="addToCart()">Add to Cart</button>
 <button onclick="closeModal()">Close</button>
+
 </div>
 </div>
 
@@ -230,6 +308,7 @@ color:#aaa;
 let cart=[];
 let currentProduct={};
 let quantity=1;
+let selectedSize="M";
 
 /* MODAL */
 function openModal(name,price){
@@ -239,13 +318,18 @@ document.getElementById("mPrice").innerText="Rp "+price;
 
 currentProduct={name,price};
 quantity=1;
+selectedSize="M";
 document.getElementById("qty").innerText=quantity;
 }
 
-function closeModal(){
-document.getElementById("modal").style.display="none";
+/* SIZE */
+function selectSize(btn){
+document.querySelectorAll(".sizes button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+selectedSize=btn.innerText;
 }
 
+/* QTY */
 function changeQty(val){
 quantity+=val;
 if(quantity<1) quantity=1;
@@ -258,7 +342,7 @@ document.getElementById("cart").classList.toggle("active");
 }
 
 function addToCart(){
-cart.push({...currentProduct,qty:quantity});
+cart.push({...currentProduct,qty:quantity,size:selectedSize});
 renderCart();
 closeModal();
 }
@@ -270,9 +354,10 @@ let total=0;
 
 cart.forEach(item=>{
 total+=item.price*item.qty;
+
 container.innerHTML+=`
 <div class="cart-item">
-${item.name} x${item.qty}
+${item.name} (${item.size}) x${item.qty}
 </div>`;
 });
 
@@ -284,10 +369,14 @@ function checkout(){
 let text="Order:%0A";
 
 cart.forEach(item=>{
-text+=`- ${item.name} x${item.qty}%0A`;
+text+=`- ${item.name} (${item.size}) x${item.qty}%0A`;
 });
 
 window.open(`https://wa.me/6281234567890?text=${text}`);
+}
+
+function closeModal(){
+document.getElementById("modal").style.display="none";
 }
 </script>
 
