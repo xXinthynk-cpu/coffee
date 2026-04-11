@@ -1,246 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAYWAY</title>
-
 <style>
-:root{
-  --black:#0a0a0a;
-  --cream:#e6d3b3;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-body{
-  background:var(--black);
-  color:white;
-}
-
-/* NAV */
-header{
-  position:fixed;
-  width:100%;
-  z-index:1000;
-}
-
-.nav{
-  display:flex;
-  justify-content:space-between;
-  padding:20px 40px;
-}
-
-.logo{
-  font-weight:bold;
-  letter-spacing:3px;
-}
-
-.menu{
-  display:flex;
-  gap:25px;
-}
-
-.menu a{
-  text-decoration:none;
-  color:white;
-  font-size:13px;
-}
-
-/* HERO */
-.hero{
-  height:100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
-    url('https://images.unsplash.com/photo-1520975916090-3105956dac38');
-  background-size:cover;
-  background-position:center;
-  display:flex;
-  align-items:center;
-  padding:0 40px;
-}
-
-.hero h1{
-  font-size:80px;
-  line-height:0.9;
-  animation:fadeUp 1s ease;
-}
-
-.hero span{color:var(--cream);}
-
-.hero p{
-  margin-top:20px;
-  color:#aaa;
-  animation:fadeUp 1.5s ease;
-}
-
-.btn{
-  margin-top:20px;
-  padding:12px 30px;
-  background:var(--cream);
-  border:none;
-  cursor:pointer;
-  animation:fadeUp 2s ease;
-}
-
-/* ANIMATION */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(40px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-/* SECTION */
-section{
-  padding:100px 40px;
-}
-
-/* SCROLL ANIMATION */
-.fade{
-  opacity:0;
-  transform:translateY(50px);
-  transition:1s;
-}
-.fade.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* BANNER */
-.banner{
-  font-size:60px;
-  text-align:center;
-  font-weight:bold;
-}
-.banner span{color:var(--cream);}
-
-/* PRODUCTS */
+/* ===== ASYMMETRICAL GRID ===== */
 .products{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:2fr 1fr;
+  grid-template-rows:300px 300px;
   gap:20px;
 }
 
+/* ITEM */
 .product{
   position:relative;
   overflow:hidden;
 }
 
+/* BESAR (highlight product) */
+.product.big{
+  grid-row:1 / span 2;
+}
+
+/* GAMBAR */
 .product img{
   width:100%;
-  height:400px;
+  height:100%;
   object-fit:cover;
-  transition:0.5s;
+  transition:0.6s;
 }
 
 .product:hover img{
   transform:scale(1.1);
 }
 
+/* OVERLAY */
 .overlay{
   position:absolute;
   bottom:0;
   width:100%;
   padding:20px;
-  background:linear-gradient(transparent, black);
+  background:linear-gradient(transparent, rgba(0,0,0,0.9));
 }
 
-.price{color:var(--cream);}
+.overlay h3{
+  font-size:20px;
+}
 
-/* FOOTER */
-footer{
-  padding:40px;
-  text-align:center;
-  color:#aaa;
+.price{
+  color:var(--cream);
+  font-weight:bold;
 }
 
 /* MOBILE */
 @media(max-width:768px){
-.hero h1{font-size:40px;}
-.products{grid-template-columns:1fr;}
+  .products{
+    grid-template-columns:1fr;
+    grid-template-rows:auto;
+  }
+
+  .product.big{
+    grid-row:auto;
+  }
 }
 </style>
-</head>
 
-<body>
-
-<header>
-  <div class="nav">
-    <div class="logo">HAYWAY</div>
-    <div class="menu">
-      <a href="#">HOME</a>
-      <a href="#">SHOP</a>
-      <a href="#">CONTACT</a>
-    </div>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="hero">
-  <div>
-    <h1>OWN THE <br><span>STREET</span></h1>
-    <p>Built for bold identity</p>
-    <button class="btn">SHOP NOW</button>
-  </div>
-</section>
-
-<!-- BANNER -->
-<section class="banner fade">
-  STREET IS <span>YOURS</span>
-</section>
-
-<!-- PRODUK -->
 <section class="fade">
   <div class="products">
 
+    <!-- PRODUK BESAR -->
+    <div class="product big">
+      <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
+      <div class="overlay">
+        <h3>Signature Hoodie</h3>
+        <p class="price">Rp 300.000</p>
+      </div>
+    </div>
+
+    <!-- PRODUK KECIL -->
     <div class="product">
       <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
       <div class="overlay">
-        <h3>Oversize Hoodie</h3>
-        <p class="price">Rp 250.000</p>
+        <h3>Street Tee</h3>
+        <p class="price">Rp 150.000</p>
       </div>
     </div>
 
     <div class="product">
       <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d">
       <div class="overlay">
-        <h3>Street T-Shirt</h3>
-        <p class="price">Rp 150.000</p>
-      </div>
-    </div>
-
-    <div class="product">
-      <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
-      <div class="overlay">
-        <h3>Cargo Fit</h3>
-        <p class="price">Rp 300.000</p>
+        <h3>Cargo Style</h3>
+        <p class="price">Rp 280.000</p>
       </div>
     </div>
 
   </div>
 </section>
-
-<footer>
-  <p>© 2026 HAYWAY — STREETWEAR</p>
-</footer>
-
-<script>
-// SCROLL ANIMATION
-const fades = document.querySelectorAll(".fade");
-
-window.addEventListener("scroll", ()=>{
-  fades.forEach(el=>{
-    const top = el.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100){
-      el.classList.add("show");
-    }
-  });
-});
-</script>
-
-</body>
-</html>
