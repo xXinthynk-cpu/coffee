@@ -1,94 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAYWAY</title>
+
 <style>
-/* ===== ASYMMETRICAL GRID ===== */
+:root{
+--black:#0a0a0a;
+--dark:#111;
+--cream:#e6d3b3;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+body{background:var(--black);color:white}
+
+/* NAV */
+header{
+position:fixed;
+width:100%;
+z-index:1000;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+}
+
+.nav{
+display:flex;
+justify-content:space-between;
+padding:20px 40px;
+}
+
+.logo{color:var(--cream);font-weight:bold;letter-spacing:2px;}
+
+.menu a{
+margin-left:20px;
+text-decoration:none;
+color:white;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+padding:0 40px;
+background:linear-gradient(#000a,#000f),
+url('https://images.unsplash.com/photo-1520975916090-3105956dac38');
+background-size:cover;
+}
+
+.hero h1{
+font-size:70px;
+}
+
+.hero span{color:var(--cream);}
+
+/* SECTION */
+section{padding:100px 40px}
+
+/* GRID */
 .products{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  grid-template-rows:300px 300px;
-  gap:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
 }
 
-/* ITEM */
 .product{
-  position:relative;
-  overflow:hidden;
+background:var(--dark);
+border-radius:10px;
+overflow:hidden;
+cursor:pointer;
 }
 
-/* BESAR (highlight product) */
-.product.big{
-  grid-row:1 / span 2;
-}
-
-/* GAMBAR */
 .product img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:0.6s;
+width:100%;
+height:300px;
+object-fit:cover;
+transition:0.4s;
 }
 
-.product:hover img{
-  transform:scale(1.1);
+.product:hover img{transform:scale(1.1)}
+
+.product-info{padding:15px}
+.price{color:var(--cream)}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+width:100%;
+height:100%;
+background:#000c;
+justify-content:center;
+align-items:center;
+z-index:2000;
 }
 
-/* OVERLAY */
-.overlay{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  padding:20px;
-  background:linear-gradient(transparent, rgba(0,0,0,0.9));
+.modal-content{
+background:#111;
+padding:20px;
+max-width:500px;
+width:90%;
 }
 
-.overlay h3{
-  font-size:20px;
+.qty{
+display:flex;
+gap:10px;
+margin:10px 0;
 }
 
-.price{
-  color:var(--cream);
-  font-weight:bold;
+.qty button{
+padding:5px 10px;
+}
+
+/* CART */
+.cart-btn{
+position:fixed;
+top:20px;
+right:20px;
+background:var(--cream);
+padding:10px;
+cursor:pointer;
+}
+
+.cart{
+position:fixed;
+right:-350px;
+top:0;
+width:300px;
+height:100%;
+background:#111;
+padding:20px;
+transition:0.4s;
+}
+
+.cart.active{right:0}
+
+.cart-item{margin:10px 0}
+
+.total{margin-top:20px;font-weight:bold}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:40px;
+color:#aaa;
 }
 
 /* MOBILE */
 @media(max-width:768px){
-  .products{
-    grid-template-columns:1fr;
-    grid-template-rows:auto;
-  }
-
-  .product.big{
-    grid-row:auto;
-  }
+.hero h1{font-size:40px}
 }
 </style>
+</head>
 
-<section class="fade">
-  <div class="products">
+<body>
 
-    <!-- PRODUK BESAR -->
-    <div class="product big">
-      <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
-      <div class="overlay">
-        <h3>Signature Hoodie</h3>
-        <p class="price">Rp 300.000</p>
-      </div>
-    </div>
+<header>
+<div class="nav">
+<div class="logo">HAYWAY</div>
+<div class="menu">
+<a href="#">HOME</a>
+<a href="#">SHOP</a>
+</div>
+</div>
+</header>
 
-    <!-- PRODUK KECIL -->
-    <div class="product">
-      <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
-      <div class="overlay">
-        <h3>Street Tee</h3>
-        <p class="price">Rp 150.000</p>
-      </div>
-    </div>
+<div class="cart-btn" onclick="toggleCart()">🛒</div>
 
-    <div class="product">
-      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d">
-      <div class="overlay">
-        <h3>Cargo Style</h3>
-        <p class="price">Rp 280.000</p>
-      </div>
-    </div>
+<div class="cart" id="cart">
+<h3>Cart</h3>
+<div id="cartItems"></div>
+<p class="total">Total: Rp <span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+</div>
 
-  </div>
+<!-- HERO -->
+<section class="hero">
+<h1>OWN THE <span>STREET</span></h1>
 </section>
+
+<!-- PRODUK -->
+<section>
+<h2 style="color:var(--cream)">Shop</h2>
+
+<div class="products">
+
+<div class="product" onclick="openModal('Hoodie Oversize',250000)">
+<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
+<div class="product-info">
+<h3>Hoodie Oversize</h3>
+<p class="price">Rp 250.000</p>
+</div>
+</div>
+
+<div class="product" onclick="openModal('Street T-Shirt',150000)">
+<img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d">
+<div class="product-info">
+<h3>Street T-Shirt</h3>
+<p class="price">Rp 150.000</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<footer>
+<p>© 2026 HAYWAY</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<h3 id="mName"></h3>
+<p id="mPrice"></p>
+
+<div class="qty">
+<button onclick="changeQty(-1)">-</button>
+<span id="qty">1</span>
+<button onclick="changeQty(1)">+</button>
+</div>
+
+<button onclick="addToCart()">Add to Cart</button>
+<button onclick="closeModal()">Close</button>
+</div>
+</div>
+
+<script>
+let cart=[];
+let currentProduct={};
+let quantity=1;
+
+/* MODAL */
+function openModal(name,price){
+document.getElementById("modal").style.display="flex";
+document.getElementById("mName").innerText=name;
+document.getElementById("mPrice").innerText="Rp "+price;
+
+currentProduct={name,price};
+quantity=1;
+document.getElementById("qty").innerText=quantity;
+}
+
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
+
+function changeQty(val){
+quantity+=val;
+if(quantity<1) quantity=1;
+document.getElementById("qty").innerText=quantity;
+}
+
+/* CART */
+function toggleCart(){
+document.getElementById("cart").classList.toggle("active");
+}
+
+function addToCart(){
+cart.push({...currentProduct,qty:quantity});
+renderCart();
+closeModal();
+}
+
+function renderCart(){
+let container=document.getElementById("cartItems");
+container.innerHTML="";
+let total=0;
+
+cart.forEach(item=>{
+total+=item.price*item.qty;
+container.innerHTML+=`
+<div class="cart-item">
+${item.name} x${item.qty}
+</div>`;
+});
+
+document.getElementById("total").innerText=total;
+}
+
+/* CHECKOUT */
+function checkout(){
+let text="Order:%0A";
+
+cart.forEach(item=>{
+text+=`- ${item.name} x${item.qty}%0A`;
+});
+
+window.open(`https://wa.me/6281234567890?text=${text}`);
+}
+</script>
+
+</body>
+</html>
